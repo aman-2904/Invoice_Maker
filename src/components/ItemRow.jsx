@@ -1,7 +1,9 @@
 import { calculateGST } from '../utils/gstCalculation';
 
 function ItemRow({ item, index, gstRate, onChange, onRemove }) {
-    const { gstAmount, totalAmount } = calculateGST(parseFloat(item.amount) || 0, gstRate);
+    // If excludeGST is true, calc with 0, else generic rate
+    const effectiveRate = item.excludeGST ? 0 : gstRate;
+    const { gstAmount, totalAmount } = calculateGST(parseFloat(item.amount) || 0, effectiveRate);
 
     return (
         <div className="item-row">
@@ -61,6 +63,16 @@ function ItemRow({ item, index, gstRate, onChange, onRemove }) {
                         readOnly
                         className="readonly-input"
                     />
+                </div>
+                <div className="form-group checkbox-group" style={{ display: 'flex', alignItems: 'center', marginTop: '25px' }}>
+                    <label style={{ display: 'flex', alignItems: 'center', gap: '5px', cursor: 'pointer', fontSize: '0.9em' }}>
+                        <input
+                            type="checkbox"
+                            checked={item.excludeGST || false}
+                            onChange={(e) => onChange(item.id, 'excludeGST', e.target.checked)}
+                        />
+                        Exclude GST
+                    </label>
                 </div>
             </div>
             <div className="item-totals">

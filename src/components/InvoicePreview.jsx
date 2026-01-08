@@ -127,7 +127,8 @@ const InvoicePreview = forwardRef(({ formData, items, gstRate, totals, amountInW
                         <tbody>
                             {items.map((item, index) => {
                                 const amount = parseFloat(item.amount) || 0;
-                                const gstAmount = (amount * gstRate) / 100;
+                                const effectiveRate = item.excludeGST ? 0 : gstRate;
+                                const gstAmount = (amount * effectiveRate) / 100;
                                 const total = amount + gstAmount;
 
                                 return (
@@ -137,7 +138,7 @@ const InvoicePreview = forwardRef(({ formData, items, gstRate, totals, amountInW
                                         <td className="col-hsn">{item.hsn}</td>
                                         <td className="col-unit">{item.unit}</td>
                                         <td className="col-amount">{amount.toFixed(2)}</td>
-                                        <td className="col-gst-percent">{gstRate}</td>
+                                        <td className="col-gst-percent">{item.excludeGST ? '0' : gstRate}</td>
                                         <td className="col-gst-amt">{gstAmount.toFixed(2)}</td>
                                         <td className="col-total">{total.toFixed(2)}</td>
                                     </tr>

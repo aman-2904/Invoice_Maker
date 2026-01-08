@@ -13,7 +13,10 @@ export function calculateInvoiceTotals(items, gstRate) {
 
     items.forEach(item => {
         const amount = parseFloat(item.amount) || 0;
-        const { gstAmount } = calculateGST(amount, gstRate);
+        // If item has excludeGST set to true, use 0 as rate for this item
+        // Otherwise use the global gstRate
+        const effectiveRate = item.excludeGST ? 0 : gstRate;
+        const { gstAmount } = calculateGST(amount, effectiveRate);
 
         totalBeforeTax += amount;
         totalGST += gstAmount;

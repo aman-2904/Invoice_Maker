@@ -33,7 +33,7 @@ function App() {
   });
 
   const [items, setItems] = useState([
-    { id: 1, description: '', hsn: '', unit: 1, rate: 0, amount: 0 }
+    { id: 1, description: '', hsn: '', unit: 1, rate: 0, amount: 0, excludeGST: false }
   ]);
 
   const [gstRate, setGstRate] = useState(18);
@@ -68,7 +68,7 @@ function App() {
 
   const addItem = () => {
     const newId = Math.max(...items.map(i => i.id), 0) + 1;
-    setItems(prev => [...prev, { id: newId, description: '', hsn: '', unit: 1, rate: 0, amount: 0 }]);
+    setItems(prev => [...prev, { id: newId, description: '', hsn: '', unit: 1, rate: 0, amount: 0, excludeGST: false }]);
   };
 
   const removeItem = (id) => {
@@ -102,7 +102,7 @@ function App() {
         destination: '',
         termsOfDelivery: ''
       });
-      setItems([{ id: 1, description: '', hsn: '', unit: 1, rate: 0, amount: 0 }]);
+      setItems([{ id: 1, description: '', hsn: '', unit: 1, rate: 0, amount: 0, excludeGST: false }]);
       setGstRate(18);
       setExcludeGST(false);
     }
