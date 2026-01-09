@@ -15,6 +15,7 @@ function InvoiceForm({
     onGstRateChange,
     onExcludeGSTChange,
     onGeneratePDF,
+    onSaveInvoice,
     onReset
 }) {
     return (
@@ -326,6 +327,9 @@ function InvoiceForm({
             <div className="form-actions">
                 <button type="button" className="btn-secondary" onClick={onReset}>
                     Reset Form
+                </button>
+                <button type="button" className="btn-primary" onClick={onSaveInvoice} style={{ backgroundColor: '#2e7d32' }}>
+                    Save to Database
                 </button>
                 <button type="button" className="btn-primary" onClick={onGeneratePDF}>
                     Generate Invoice PDF
